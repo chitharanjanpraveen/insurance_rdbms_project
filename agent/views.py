@@ -26,3 +26,19 @@ def loginstaff(request):
         return HttpResponse("<h1>Success fully logged in</h1>")
     else:
         return HttpResponseRedirect('/in/')
+
+def loginuser(request):
+    name = str(request.POST.get("username"))
+    passa = str(request.POST.get("passa"))
+    query = "SELECT * FROM customer_customer WHERE pass_word='" + passa + "' and cust_id=" + name
+    cursor2 = connection.cursor()
+    cursor2.execute(query)
+    row2 = cursor2.fetchall()
+    count = len(row2)
+    if count==1 :
+        request.session["username"]=name;
+        request.session["passa"] = passa;
+        return HttpResponseRedirect('/cust/')
+    else:
+        return HttpResponseRedirect('/in/')
+

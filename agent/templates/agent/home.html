@@ -127,6 +127,7 @@
           <li><button style="width:auto;">About Us</button></li>
           <li><button style="width:auto;">Contact us</button></li>
           <li><button style="width:auto;">FAQ's</button></li>
+          <li><button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Customer Login</button></li>
           <li><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Agent Login</button></li>
           <li><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Admin Login</button></li>
       </ul>
@@ -167,6 +168,24 @@
   </div>
 </form>
 </div>
+<!--- customer psrt --->
+<div id="id03" class="modal">
+<form class="modal-content animate" action="/in/auth/user" method="POST" style="max-width:800px">
+{% csrf_token %}
+  <div class="imgcontainer">
+    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+  </div>
+  <div class="container" style="max-width:800px;padding:50px">
+    <input type="text" name="username" value="" placeholder="username" required="required">
+    <input type="password" name="passa" value="" placeholder="Password" required="required">
+    <button type="submit">Login</button>
+  </div>
+  <div class="container" style="background-color:#f1f1f1;max-width:800px">
+    <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+  </div>
+</form>
+</div>
+
  <div id="slider">
         <figure>
             <img src="{% static 'agent/images/uvce2.jpg' %}" alt width="100%" height="400px">

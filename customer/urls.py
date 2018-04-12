@@ -5,6 +5,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name="home"),
-    url(r'^auth/staff$', views.loginstaff, name="loginstaff"),
-    url(r'^auth/user$', views.loginuser, name="loginuser"),
+    url(r'^logout$', views.logout, name="logout"),
 ]

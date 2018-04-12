@@ -11,6 +11,7 @@ class customer(models.Model):
     DOB = models.DateField()
     cust_id = models.IntegerField(primary_key=True)
     Cagent_id = models.ForeignKey(agent, on_delete=models.CASCADE)
+    pass_word = models.CharField(max_length=50)
 
     def __str__(self):
         return str(self.cust_id)
