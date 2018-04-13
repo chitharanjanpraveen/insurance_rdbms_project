@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+function fun(vara)
+{
+  switch (vara) {
+    case '1':document.getElementsByClassName('stdlogin')[0].innerHTML='<h1>Hi, choose what do you want from above bar</h1>';
+                    break;
+    case '2':document.getElementsByClassName('stdlogin')[0].innerHTML='';
+                    break;
+  case '3':document.getElementsByClassName('stdlogin')[0].innerHTML='<div class="container"><form action="contact/contactdetails.php" method="POST"><br><label for="fname">First Name</label><input type="text" id="fname" name="firstname" placeholder="Your name.."> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;CONTACT NUM :- 9663695360<br/><label for="lname">Last Name</label><input type="text" id="lname" name="lastname" placeholder="Your last name.."> <br/><label for="country">Country</label>  <select id="country" name="country"><option value="australia">Australia</option><option value="india">INDIA</option><option value="usa">USA</option>  </select>  <label for="subject">Subject</label> <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea><input type="submit" value="Submit"> </form></div>';
+              break;
+    case '4':document.getElementsByClassName('stdlogin')[0].innerHTML='<div class="container"><form action="new/newreq.php" method="POST"> <label for="subject">Request for New Courses</label><textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" style="width:200px"></textarea>  <input type="submit" value="Submit"><form/> </div>';
+                  break;
+    case '5':document.getElementsByClassName('stdlogin')[0].innerHTML='<div class="login-form" style="height:430px;padding-top:0px"><center><span class="name-login">STUDENT SIGN UP</span><form  action="std/signup.php" method="POST"><p><input type="text" name="f_name" placeholder="Firstname" value="" required="required"></p><p><input type="text" name="l_name" placeholder="Lastname" value="" required="required"></p><p><input type="email" name="user_name" placeholder="Email" value="" required="required"></p><p><input type="password" name="passvalue" placeholder="Password" value="" required="required" id="myInput"></p><p><input type="password" name="passvalue" placeholder="RE Enter password" value="" required="required" id="myInput"></p><input class="login-button" type="submit" value="SIGNUP"> </center></div>';
+                    break;
+    case '6':document.getElementsByClassName('stdlogin')[0].innerHTML="<div class=\"login-form\"><center> <span class=\"name-login\">Change password</span><form action=\"/in/staff/pass\" method=\"POST\"> {% csrf_token %} <p><input type=\"password\" name=\"oldpass\" placeholder=\"Old password\" required=\"required\"></p> <p><input type=\"password\" name=\"newpass\" placeholder=\"New Password\" required=\"required\" id=\"myInput\"></p><p><input type=\"password\" name=\"conpass\" placeholder=\"Confirm Password\" required=\"required\" id=\"myInput\"></p><input class=\"login-button\" type=\"submit\" value=\"LOGIN\"></form></center> </div>";
+            break;
+          default:
+        }
+    document.getElementsByClassName('temp')[0].innerHTML='';
+}
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* When moving the mouse over the submit button, add a darker green color */
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+/* Add a background color and some padding around the form */
+.container {
+    border-radius: px;
+    background-color: #80d4ff;
+    padding: 20px;
+}
+      .login-form
+      {
+        box-shadow: 5px 10px #888888;
+        height: 300px;
+        width: 400px;
+        background-color: #80d4ff;
+        margin:0 auto;
+        border-radius: 25px;
+      }
+      input[type=password],input[type=text],input[type=email] {
+      padding: 3px 0px 3px 3px;
+      margin: 5px 1px 3px 0px;
+      border: 1px solid #DDDDDD;
+      height: 25px;
+      width: 280px;
+      font-size: 24px;
+      font-family: cursive;
+      }
+      p
+      {
+      padding-top: 20px;
+      padding-bottom: 0px;
+      }
+      input[type=password]:focus,input[type=email]:focus {
+      box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+      padding: 3px 0px 3px 3px;
+      margin: 5px 1px 3px 0px;
+      border: 1px solid rgba(81, 203, 238, 1);
+      }
+      .name-login
+      {
+      font-size: 35px;
+      }
+      .login-button
+      {
+      width: 90px;
+      height: 45px;
+      background-color: #3399ff;
+      box-shadow: 5px 3px #888888;
+      font-family: cursive;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 15px;
+      }
+    </style>
+  </head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" onclick="fun('1')">Welcome {{ data }}</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/in/staff/add" onclick="fun('2')">Add Customer</a></li>
+      <li><a href="#contact" onclick="fun('3')">Update Customer</a></li>
+      <li><a href="#new" onclick="fun('4')">Check for transaction</a></li>
+      <li><a href="#change" onclick="fun('6')">Change Password</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/in/staff/logout" onclick="fun('5')"><span class="glyphicon glyphicon-log-out"></span>    LogOut</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="temp">
+{% if error %}
+    <h3><center><strong>{{ error }}</strong></center></h3>
+{% endif %}
+</div>
+<div class="stdlogin">
+</div>
+  </body>
+</html>
