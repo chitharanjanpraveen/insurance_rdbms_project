@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^staff/update$', views.update, name="update"),
     url(r'^staff/updatedone$', views.updatedone, name="updatedone"),
     url(r'^staff/updatedonetodb$', views.updatedonetodb, name="updatedonetodb"),
+    url(r'^staff/trans$', views.transaction, name="transaction"),
+    url(r'^staff/transdone$', views.viewtrans, name="viewtrans"),
 ]

@@ -10,10 +10,7 @@ from datetime import datetime
 # Create your views here.
 
 def home(request):
-    if(autoauth(request)):
-        return HttpResponse('<a href="/cust/logout">Logout</a>')
-    else:
-        return HttpResponseRedirect('/in/')
+    return render(request, 'customer/customerhome.html', {'data': "chitha"})
 
 
 def autoauth(request):
@@ -33,3 +30,21 @@ def logout(request):
     del request.session["username"]
     del request.session["passa"]
     return HttpResponseRedirect('/in')
+
+
+
+
+def customerlogout(request):
+        if autoauth(request):
+            del request.session['username']
+            del request.session['passa']
+            del request.session['name']
+            return HttpResponseRedirect('/in')
+        else:
+            return HttpResponseRedirect('/in')
+
+def addnominee(request):
+    if(autoauth(request)):
+        return render(request, 'customer/addnominee.html', {'data': request.session['cusname']})
+    else:
+        return HttpResponseRedirect('/in')
