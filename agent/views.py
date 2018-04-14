@@ -41,6 +41,7 @@ def loginuser(request):
     if count==1 :
         request.session["username"]=name;
         request.session["passa"] = passa;
+        request.session['cusname']=row2[0][0]+row2[0][1];
         return HttpResponseRedirect('/cust/')
     else:
         return HttpResponseRedirect('/in/')
@@ -125,7 +126,12 @@ def transaction(request):
 def viewtrans(request):
     if autoauth(request):
         name=str(request.POST.get('custid'))
-        query="SELECT policyno,payment_num,payment_amount,payment_date FROM customer_payment,customer_customer,customer_policy WHERE"
+        query="SELECT cp.policyno_id,cp.payment_num,cp.payment_amount,cp.payment_date,pt.policy_name FROM customer_payment cp,customer_customer c,customer_policy cpo,customer_policy_holder ch,customer_policy_type pt WHERE "
+        query=query+"ch.customer_id_id =" + str(name) + " and ch.pol_no_id=cp.policyno_id and cpo.policy_num=cp.policyno_id and pt.policy_code=cpo.policycode_id"
+        cursor2 = connection.cursor()
+        cursor2.execute(query)
+        row=cursor2.fetchall()
+        return HttpResponse(row)
     else:
         return HttpResponseRedirect('/in')
 

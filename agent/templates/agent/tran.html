@@ -30,5 +30,10 @@
       </ul>
     </div>
   </nav>
+<form class="example" action="/in/staff/transdone" method="POST" style="padding:100px">
+  {% csrf_token %}
+    <input type="text" placeholder="Please enter customer id to update details..." name="custid">
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
 </body>
 </html>
