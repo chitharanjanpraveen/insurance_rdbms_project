@@ -9,9 +9,10 @@ class customer(models.Model):
     age = models.IntegerField()
     sex = models.CharField(max_length=1)
     DOB = models.DateField()
-    cust_id = models.IntegerField(primary_key=True)
+    cust_id = models.AutoField(primary_key=True)
     Cagent_id = models.ForeignKey(agent, on_delete=models.CASCADE)
     pass_word = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.cust_id)

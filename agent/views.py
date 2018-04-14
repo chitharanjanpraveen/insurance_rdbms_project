@@ -73,20 +73,89 @@ def changepass(request):
         newpassword=str(request.POST.get("newpass"))
         conpassword=str(request.POST.get("conpass"))
         if(oldpassword!=request.session['password']):
-            return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':"Old password mismatch" })
+            return render(request, 'agent/changepass.html', {'data': request.session['name'], 'error':"Old password mismatch" })
         else:
             if newpassword==conpassword:
-                query="UPDATE agent_agent SET pass_word='"+ conpassword +"'"
+                query="UPDATE agent_agent SET pass_word='"+ conpassword +"' WHERE agentid=" + str(request.session['agentname'])
                 cursor2 = connection.cursor()
                 cursor2.execute(query)
-                return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':"Successfully changed your password"})
+                request.session['password']=conpassword
+                return render(request, 'agent/changepass.html', {'data': request.session['name'], 'error':"Successfully changed your password"})
             else:
-                return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':"New password mismatch"})
+                return render(request, 'agent/changepass.html', {'data': request.session['name'], 'error':"New password mismatch"})
     else:
         return HttpResponseRedirect('/in')
 
 def addcus(request):
     if(autoauth(request)):
         return render(request, 'agent/addcus.html', {'data': request.session['name']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def changepassword(request):
+    if autoauth(request):
+        return render(request, 'agent/changepass.html', {'data': request.session['name']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def addtodb(request):
+    if autoauth(request):
+        newagent = customer()
+        newagent.Fname=str(request.POST.get('first_name'))
+        newagent.Lname=str(request.POST.get('second_name'))
+        newagent.phone_no=str(request.POST.get('phone'))
+        newagent.email=str(request.POST.get('email'))
+        newagent.pass_word=str(request.POST.get('passa'))
+        newagent.age=str(request.POST.get('age'))
+        newagent.DOB=str(request.POST.get('dob'))
+        newagent.address=str(request.POST.get('per_add'))
+        newagent.sex=str(request.POST.get('gender'))
+        newagent.Cagent_id= agent.objects.only('agentid').get(agentid=request.session['agentname'])
+        newagent.save()
+        return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':newagent.cust_id})
+    else:
+        return HttpResponseRedirect('/in')
+
+def transaction(request):
+    if autoauth(request):
+        return render(request, 'agent/tran.html', {'data': request.session['name']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def viewtrans(request):
+    if autoauth(request):
+        name=str(request.POST.get('custid'))
+        query="SELECT policyno,payment_num,payment_amount,payment_date FROM customer_payment,customer_customer,customer_policy WHERE"
+    else:
+        return HttpResponseRedirect('/in')
+
+def update(request):
+    if autoauth(request):
+        return render(request, 'agent/update.html', {'data': request.session['name']})
+    else:
+        return HttpResponseRedirect('/in')
+
+
+def updatedone(request):
+    if autoauth(request):
+        query="SELECT * FROM customer_customer WHERE cust_id=" + str(request.POST.get('id'))
+        cursor2 = connection.cursor()
+        cursor2.execute(query)
+        row2 = cursor2.fetchall()
+        return render(request, 'agent/updatepage.html', {'data':request.session['name'], 'logdata':row2})
+    else:
+        return HttpResponseRedirect('/in')
+
+def updatedonetodb(request):
+    if autoauth(request):
+        newagent = customer.objects.get(cust_id=int(request.POST.get('cusid')))
+        newagent.phone_no=str(request.POST.get('phone'))
+        newagent.email=str(request.POST.get('email'))
+        newagent.age=str(request.POST.get('age'))
+        newagent.DOB=str(request.POST.get('dob'))
+        newagent.address=str(request.POST.get('per_add'))
+        newagent.sex=str(request.POST.get('gender'))
+        newagent.save()
+        return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':newagent.cust_id})
     else:
         return HttpResponseRedirect('/in')

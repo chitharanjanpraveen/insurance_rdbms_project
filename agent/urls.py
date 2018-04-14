@@ -11,4 +11,9 @@ urlpatterns = [
     url(r'^staff/logout$', views.stafflogout, name="stafflogout"),
     url(r'^staff/pass$', views.changepass, name="changepass"),
     url(r'^staff/add$', views.addcus, name="addcus"),
+    url(r'^staff/change$', views.changepassword, name="changepassword"),
+    url(r'^staff/addcus$', views.addtodb, name="addtodb"),
+    url(r'^staff/update$', views.update, name="update"),
+    url(r'^staff/updatedone$', views.updatedone, name="updatedone"),
+    url(r'^staff/updatedonetodb$', views.updatedonetodb, name="updatedonetodb"),
 ]
