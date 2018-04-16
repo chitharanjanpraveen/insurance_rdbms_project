@@ -10,7 +10,7 @@ from datetime import datetime
 # Create your views here.
 
 def home(request):
-    return render(request, 'customer/customerhome.html', {'data': "chitha"})
+    return render(request, 'customer/customerhome.html', {'data': request.session['cusname']})
 
 
 def autoauth(request):
@@ -46,5 +46,44 @@ def customerlogout(request):
 def addnominee(request):
     if(autoauth(request)):
         return render(request, 'customer/addnominee.html', {'data': request.session['cusname']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def nomaddtodb(request):
+    if(autoauth(request)):
+        newcustomer = nominee()
+        newcustomer.name = str(request.POST.get('name'))
+        newcustomer.relationship = str(request.POST.get('rs'))
+        newcustomer.DOB = str(request.POST.get('dob'))
+        newcustomer.sex =str(request.POST.get('gender'))
+        newcustomer.age=str(request.POST.get('age'))
+        newcustomer.customer_id=customer.objects.only('cust_id').get(cust_id=request.session['username'])
+        newcustomer.save()
+        return render(request, 'customer/customerhome.html', {'data': request.session['cusname']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def changepassword(request):
+    if autoauth(request):
+        return render(request, 'customer/changepass.html', {'data': request.session['cusname']})
+    else:
+        return HttpResponseRedirect('/in')
+
+def changepass(request):
+    if(autoauth(request)):
+        oldpassword=str(request.POST.get("oldpass"))
+        newpassword=str(request.POST.get("newpass"))
+        conpassword=str(request.POST.get("conpass"))
+        if(oldpassword!=request.session['password']):
+            return render(request, 'customer/changepass.html', {'data': request.session['cusname'], 'error':"Old password mismatch" })
+        else:
+            if newpassword==conpassword:
+                query="UPDATE customer_customer SET pass_word='"+ conpassword +"' WHERE cust_id=" + str(request.session['username'])
+                cursor2 = connection.cursor()
+                cursor2.execute(query)
+                request.session['passa']=conpassword
+                return render(request, 'customer/changepass.html', {'data': request.session['cusname'], 'error':"Successfully changed your password"})
+            else:
+                return render(request, 'customer/changepass.html', {'data': request.session['cusname'], 'error':"New password mismatch"})
     else:
         return HttpResponseRedirect('/in')
