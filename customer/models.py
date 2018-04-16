@@ -46,6 +46,7 @@ class nominee(models.Model):
     DOB = models.DateField()
     sex = models.CharField(max_length=1)
     customer_id =  models.ForeignKey(customer, on_delete=models.CASCADE)
+    age=models.IntegerField()
 
 class policy_payment(models.Model):
     policy_number = models.ForeignKey(payment, on_delete=models.CASCADE)

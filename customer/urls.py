@@ -8,6 +8,11 @@ urlpatterns = [
     url(r'^logout$', views.logout, name="logout"),
     url(r'^logout$', views.customerlogout, name="customerlogout"),
     url(r'^add$', views.addnominee, name="addnominee"),
-    url(r'^update$', views.update, name="update"),
+    url(r'^addnominee$', views.nomaddtodb, name="nomaddtodb"),
+    url(r'^changepass$', views.changepass, name="changepass"),
+    url(r'^change$', views.changepassword, name="changepassword"),
+
+
+
 
 ]

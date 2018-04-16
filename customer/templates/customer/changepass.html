@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Customer</title>
+    <title>Change Password</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body{
-      background-image: url('{% static 'agent/images/back.jpg' %}');
-      background-repeat: no-repeat;
-      }
-    </style>
+  <style>
+    body{
+    background-image: url('{% static 'agent/images/back.jpg' %}');
+    background-repeat: no-repeat;
+    }
+  </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -30,40 +30,44 @@
     </ul>
   </div>
 </nav>
+<div class="temp">
+{% if error %}
+    <h3><center><font color="white"><strong>{{ error }}</strong></font></center></h3>
+{% endif %}
+</div>
 <div class="stdlogin">
-    <center style="margin-top:100px">
-    <form style="max-width:800px" action="/cust/addnominee" method="POST"  enctype="multipart/form-data">
+  <center style="margin-top:100px">
+   <form style="max-width:800px" action="/cust/changepass" method="POST"  enctype="multipart/form-data">
   {% csrf_token %}
       <div class="form-row">
         <div class="form-group col-md-6">
-          <input type="text" class="form-control" id="name" placeholder="name" name="name" required="required">
+            <font color="white">Old Password</font>
         </div>
         <div class="form-group col-md-6">
-          <select class="form-control" id="inputEmail4" name="gender">
-            <option value="m">Male</option>
-            <option value="f">Female</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Relationship" name="rs" required="required">
+          <input type="text" class="form-control" placeholder="Old Password" name="oldpass" required="required">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Age" name="age" required="required">
+            <font color="white">New Password</font>
         </div>
+      </div>
+      <div class="form-row">
         <div class="form-group col-md-6">
-          <input type="date" class="form-control" id="inputPassword4" placeholder="DOB" name="dob" required="required">
+          <input type="text" class="form-control" placeholder="New Password" name="newpass" required="required">
         </div>
       </div>
-      <div class="form-row col-md-12 form-group">
-        <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="per_add" required="required">
+       <div class="form-row">
+        <div class="form-group col-md-6">
+            <font color="white">Confirm New Password</font>
+        </div>
       </div>
-      <div class="form-row col-md-12 form-group">
-        <button type="submit" class="btn btn-primary">Add Nominee</button>
-    </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input type="text" class="form-control" placeholder="Confirm New Password" name="conpass" required="required">
+        </div>
+      </div>
+       <button type="submit" class="btn btn-primary">Change Password</button>
     </form>
   </center>
 </div>
