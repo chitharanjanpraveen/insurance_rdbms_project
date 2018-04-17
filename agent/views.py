@@ -113,7 +113,8 @@ def addtodb(request):
         newagent.sex=str(request.POST.get('gender'))
         newagent.Cagent_id= agent.objects.only('agentid').get(agentid=request.session['agentname'])
         newagent.save()
-        return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':newagent.cust_id})
+        stri="The now added customer " + str(newagent.Fname) +" "+ str(newagent.Lname) + " customer id is  "+ str(newagent.cust_id)
+        return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':stri})
     else:
         return HttpResponseRedirect('/in')
 
@@ -163,5 +164,15 @@ def updatedonetodb(request):
         newagent.sex=str(request.POST.get('gender'))
         newagent.save()
         return render(request, 'agent/agenthome.html', {'data': request.session['name'], 'error':newagent.cust_id})
+    else:
+        return HttpResponseRedirect('/in')
+
+def addpolicy(request):
+    if autoauth(request):
+        query = "SELECT * FROM customer_policy_type WHERE 1"
+        cursor2 = connection.cursor()
+        cursor2.execute(query)
+        row2 = cursor2.fetchall()
+        return render(request, 'agent/addpolicy.html', {'data': request.session['name'],'d':row2})
     else:
         return HttpResponseRedirect('/in')

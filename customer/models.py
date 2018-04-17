@@ -55,6 +55,7 @@ class policy_payment(models.Model):
 class policy_holder(models.Model):
     customer_id =  models.ForeignKey(customer, on_delete=models.CASCADE)
     pol_no =  models.ForeignKey(policy, on_delete=models.CASCADE)
+    term = models.IntegerField()
 
 
 
